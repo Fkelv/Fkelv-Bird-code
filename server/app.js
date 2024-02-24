@@ -64,14 +64,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/videos", videoRoutes);
- 
+
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   throw error;
 });
 
 app.use((error, req, res, next) => {
-  console.log(error); 
+  console.log(error);
   if (req.file) {
     fs.unlink(req.file.path, (err) => {
       console.log(err);
@@ -87,7 +87,7 @@ app.use((error, req, res, next) => {
 const mongo_DB_URI = process.env.DATABASE_URI;
 
 mongoose
-  .connect(mongo_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true ,dbName : "twitterClone" })
+  .connect(mongo_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true, dbName: "twitterClone" })
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -114,7 +114,7 @@ app.get("/video/:filename", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/videos/" + req.params.filename));
 });
 
-server.listen(3001, () => {
+server.listen(8000, () => {
   console.log("listening on *:8000");
 });
 
